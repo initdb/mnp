@@ -1,0 +1,99 @@
+
+
+#>00001000          ___heap_size (linker command file)
+#>00001000          ___stack_size (linker command file)
+#>40000000          ___IPSBAR (linker command file)
+#>20000000          ___RAMBAR (linker command file)
+#>00010000          ___RAMBAR_SIZE (linker command file)
+#>00000000          ___FLASHBAR (linker command file)
+#>00080000          ___FLASHBAR_SIZE (linker command file)
+#>2000FFFC          ___SP_AFTER_RESET (linker command file)
+
+# .userram
+
+# .code
+
+# .vectorram
+
+# .vectors
+  20000500 00000400 .vectortable _vect	(exceptions_c.obj)
+
+# .text
+  20000900 00000060 .text   UART0_Init	(UART0_c.obj)
+  20000960 000000C6 .text   __initialize_hardware	(Cpu_c.obj)
+  20000A26 0000038A .text   PE_low_level_init	(Cpu_c.obj)
+  20000DB0 00000008 .text   __initialize_system	(startcf_c.obj)
+  20000DB8 0000006C .text   __copy_rom_section	(startcf_c.obj)
+  20000E24 0000005E .text   __copy_rom_sections_to_ram	(startcf_c.obj)
+  20000E82 00000004 .text   _ExitProcess	(startcf_c.obj)
+  20000E86 0000022A .text   clear_mem	(startcf_c.obj)
+  200010B0 000000AA .text   _startup	(startcf_c.obj)
+  2000115A 0000011A .text   uart_init	(uart_support_c.obj)
+  20001274 00000040 .text   uart_putchar	(uart_support_c.obj)
+  200012B4 0000002A .text   InitializeUART	(uart_support_c.obj)
+  200012DE 0000003E .text   TERM_Write	(terminal_wrapper_c.obj)
+  2000131C 00000078 .text   main	(main_c.obj)
+  20001394 00000206 .text   mcf_exception_handler	(exceptions_c.obj)
+  2000159A 00000022 .text   asm_exception_handler	(exceptions_c.obj)
+  200015BC 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
+  200015C8 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
+  200015E4 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
+#>20001610          ___ROM_AT (linker command file)
+#>20001610          ___DATA_ROM (linker command file)
+
+# .data
+#>20009100          ___DATA_RAM (linker command file)
+#>20009100          __exception_table_start__ (linker command file)
+# Exception index
+  20009100 00000000         Exception Table Index	()
+#>20009100          __exception_table_end__ (linker command file)
+#>20009100          ___sinit__ (linker command file)
+# Linker generated symbols
+  20009100 00000004         static initializer	(linker generated)
+#>20009104          __START_DATA (linker command file)
+  20009104 00000002 .data   __2209sdfjkl_init	(terminal_wrapper_c.obj)
+#>20009108          __END_DATA (linker command file)
+#>20009108          __START_SDATA (linker command file)
+#>20009108          __END_SDATA (linker command file)
+#>20009108          ___DATA_END (linker command file)
+#>20009108          __SDA_BASE (linker command file)
+
+# .bss
+#>20009108          ___BSS_START (linker command file)
+#>20009108          __START_SBSS (linker command file)
+#>20009108          __END_SBSS (linker command file)
+#>20009108          __START_BSS (linker command file)
+  20009108 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
+#>2000910C          __END_BSS (linker command file)
+#>2000910C          ___BSS_END (linker command file)
+
+# .custom
+#>2000910C          ___HEAP_START (linker command file)
+#>2000910C          ___heap_addr (linker command file)
+#>2000A10C          ___HEAP_END (linker command file)
+#>2000A10C          ___SP_END (linker command file)
+#>2000B10C          ___SP_INIT (linker command file)
+#>20000000          ___VECTOR_RAM (linker command file)
+#>2000B10C          __SP_INIT (linker command file)
+#>2000A10C          ___mem_limit (linker command file)
+#>00000010          ___stack_safety (linker command file)
+#>20001618          _romp_at (linker command file)
+
+# .romp
+#>20001618          __S_romp (linker command file)
+
+
+# Memory map:
+  v_addr   p_addr   size     name
+  20000000 20000000 00000000 .vectorram vectorram
+  20000500 20000500 00000000 .code      code
+  20000500 20000500 00000400 .vectors   code
+  20000900 20000900 00000D10 .text      code
+  20009100 20009100 00000000 .userram   userram
+  20009100 20001610 00000008 .data      userram
+  20009108 20009108 00000004 .bss       userram
+  2000910C 2000910C 00000000 .custom    userram
+  2000910C 20001618 00000018 .romp      userram
+
+# Link start time: Wed Oct 17 15:47:29 2018
+# Link end time: Wed Oct 17 15:47:29 2018
