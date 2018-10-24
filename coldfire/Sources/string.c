@@ -47,33 +47,33 @@ void string()
  * Wie Übung 1, aber String rückwärts 							*
  * (beginnend mit dem letzen Zeichen) ausgeben:					*
  ****************************************************************/
-string_revert()
+void string_revert()
 {
+	char str[] = "Hello u qt ! ;)";
+	
 	asm
 	{	
+		// save str address in A1
 		LEA str,A1
-		MOVE A1,A2		//save beginning of string to A2
-		Loop2: 				//To find the last element of str While
-			MOVE.B +(A1),D0	//increment poiter to 1 after str end
-			TST.B D0			//end loop to if content of D0 = 0
-			BEQ End_Loop2
-						  
-		BRA Loop2			//We jmp back as long as str is not NULL
+		// clear string length counter
+		CLR.L D4
 		
-		End_Loop2:
-					  
-		SUBA.L #1,A1		//move pointer back to str end
+		count_elements:		//find the last element of str
+			ADDQ.L #1,D4	//increment counter by 1
+			TST.B (A1)+		//test if element pointed by A2 == 0 and increment pointer A2
+		BNE count_elements	//end loop if TST==0
 		
-		Loop3:
-			MOVE.B -(A1),D0
-			MOVE.B D0,-(SP)
-			JSR TERM_Write	//call function TERM_Write
-			ADDA.L #1,SP		//clean Stack
-			CMPA A1,A2
-			BEQ End_Loop3
-						  
-		BRA Loop3
-			
-		End_Loop3:
+		SUBQ.L #1,A1		//move pointer back to str end
+		SUBQ.L #1,D4		//substract count of D1 by 1
+		
+		BRA print_end
+		
+		print_elements:
+				MOVE.B -(A1),-(SP)
+				JSR TERM_Write		//call function TERM_Write
+				ADDA.L #1,SP		//clean Stack
+			print_end:
+				SUBQ.L #1,D4		//decrement counter
+		BGE print_elements
 	}
 }
