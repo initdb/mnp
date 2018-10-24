@@ -31,6 +31,10 @@
                              // (d.h. die serielle Schnittstelle)
 #include "terminal_wrapper.h"
 
+/************************************************************
+ * includes für uebungen
+ ************************************************************/
+#include "string.h"
 #include "hextoascii.h"
 
 // - Bitte darauf achten, dass am Coldfire-Serial Port ein  
@@ -51,58 +55,41 @@ void main(void)
 	/***** End of Processor Expert internal initialization. **********************/
 	
 	
-	  
-	  //TERM_WriteString("Los geht's!\r\n");
-	  /* 
-	   * ueb1 + ueb2 
-	   * @TODO correct! */
-	  /*asm
-	  { 
-		  //start UEB1
-			  BRA Start //Tells pointer to JMP onto Start
-			  //hier variablen einfügen
-		  
-			  str: DC.B "Hello u Benedict!\n\r" //String input
-		  
-		  Start:
-			  LEA str,A1 		//Load Effective Address
-		  Loop:
-			  MOVE.B (A1)+,D0 	//Writes @A1 into D0
-			  TST.B D0 			//Tests if D0 conatins only 0
-			  BEQ End_Loop		//true -> jumps to end loop
-			  MOVE.B D0,-(SP)	//false-> writes content of D0 to Stack
-			  JSR TERM_Write	//call function TERM_Write
-			  ADDA.L #1,SP		//clean Stack
-		  
-			  BRA Loop			//goto Loop label
-		  End_Loop:				//end loop label
-		  
-		  //start UEB2
-			  LEA str,A1
-			  MOVE A1,A2		//save beginning of string to A2
-		  Loop2: 				//To find the last element of str While
-			  MOVE.B +(A1),D0	//increment poiter to 1 after str end
-			  TST.B D0			//end loop to if content of D0 = 0
-			  BEQ End_Loop2
-			  
-			  BRA Loop2			//We jmp back as long as str is not NULL
-		  End_Loop2:
-		  
-			  SUBA.B #1,A1		//move pointer back to str end
-		  Loop3:
-			  MOVE.B -(A1),D0
-			  MOVE.B D0,-(SP)
-			  JSR TERM_Write	//call function TERM_Write
-			  ADDA.L #1,SP		//clean Stack
-			  CMPA A1,A2
-			  BEQ End_Loop3
-			  
-			  BRA Loop3
-		  End_Loop3:
-	  }*/
-	 
+	/***********************************************************************************
+	 * Uebung2: Ausgabe eines Strings (rückwärts)
+	 * Wie Übung 1, aber String rückwärts (beginnend mit dem letzen Zeichen) ausgeben:
+	 **********************************************************************************/
+	/*asm
+	{ 
+		
+		
+		LEA str,A1
+		MOVE A1,A2		//save beginning of string to A2
+		Loop2: 				//To find the last element of str While
+			MOVE.B +(A1),D0	//increment poiter to 1 after str end
+			TST.B D0			//end loop to if content of D0 = 0
+			BEQ End_Loop2
+					  
+			BRA Loop2			//We jmp back as long as str is not NULL
+		End_Loop2:
+				  
+		SUBA.L #1,A1		//move pointer back to str end
+		Loop3:
+			MOVE.B -(A1),D0
+			MOVE.B D0,-(SP)
+			JSR TERM_Write	//call function TERM_Write
+			ADDA.L #1,SP		//clean Stack
+			CMPA A1,A2
+			BEQ End_Loop3
+					  
+		BRA Loop3
+		
+		End_Loop3:
+	}
+	 */
 	
-	hex_to_ascii();
+	string();
+	//hex_to_ascii();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************

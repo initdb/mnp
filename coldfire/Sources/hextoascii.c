@@ -5,8 +5,6 @@
  *      Author: Caroline, Benedict
  */
 
-//#pragma compact_abi 
- 
 
 #include "UART0.h"
 #include "support_common.h"  // include peripheral declarations and more; 
