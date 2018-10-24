@@ -42,6 +42,7 @@
 void main(void)
 {
   int counter = 0;
+  uint32_t zahl = 0xAFFE;
 
   
 
@@ -52,8 +53,10 @@ void main(void)
 
   
   //TERM_WriteString("Los geht's!\r\n");
-  
-  asm
+  /* 
+   * ueb1 + ueb2 
+   * @TODO correct! */
+  /*asm
   { 
 	  //start UEB1
 	  	  BRA Start //Tells pointer to JMP onto Start
@@ -96,10 +99,51 @@ void main(void)
 	  	  
 	  	  BRA Loop3
 	  End_Loop3:
+  }*/
+ 
+  /*
+   * ueb3
+   * */
+  
+  
+  asm
+  {
+	  	  // shift data right , #12 ersetzen
+	  	  MOVE.L #12,D4
+	  loop:
+	  	  MOVE.L zahl,D1
+	  	  LSR.L D4,D1
+	  	  // mask with immediate data
+	  	  ANDI.L #15,D1
+	  	  // get ascii char
+	  	  //Bedingungen für Jumps
+	  	  //if(x <=9)
+	  	  CMPI #9,D1 //D1-9 aka 0-9
+	  	  BLE null_bis_neun //D1-9 <= 0
+	  	  //else if(x > 9)
+	  	  CMPI #9,D1 //D1-9
+	  	  BGT A_bis_F //D1-9 > 0
+	  continue_loop:
+	  	  // print on uart
+	  	  MOVE.B D1,-(SP)	//false-> writes content of D1 to Stack
+	  	  JSR TERM_Write	//call function TERM_Write
+	  	  ADDA.L #1,SP		//clean Stack
+	  	  // check if D2 == 0 if true end loop
+	  	  TST.L D4
+	  	  BEQ end_loop
+	  	  // decrement shift register
+	  	  SUBQ.L #4,D4
+	  	  BRA loop
+	  
+	  	  
+	  null_bis_neun:
+	  	  ADDI.L #48,D1
+	  	  BRA continue_loop
+	  A_bis_F:
+	  	  ADDI.L #55,D1
+	  	  BRA continue_loop
+	  end_loop:
   }
- 
-
- 
 
 
 

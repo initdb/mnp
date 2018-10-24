@@ -6,7 +6,7 @@
 
 export HC08ToolsEnv=$(CWInstallLocationEnv)/MCU/prog
 export GNU_Make_Install_DirEnv=$(CWInstallLocationEnv)/gnu/bin
-export ProjDirPath=C:/Users/Benedict/workspace/MnP/test01
-export CWInstallLocationEnv=C:/Freescale/CW MCU v11.0
+export ProjDirPath=C:/Users/sEITbtschw/Documents/workplace/mnp/coldfire
+export CWInstallLocationEnv=C:/Freescale/CW MCU v10.6
 export MCUToolsBaseDirEnv=$(CWInstallLocationEnv)/MCU
 export CF_ToolsDirEnv=$(CWInstallLocationEnv)/MCU/ColdFire_Tools/Command_Line_Tools
