@@ -32,7 +32,7 @@
 #include "terminal_wrapper.h"
 
 /************************************************************
- * includes für uebungen
+ * includes für uebungen									*
  ************************************************************/
 #include "string.h"
 #include "hextoascii.h"
@@ -50,45 +50,15 @@ void main(void)
 	
 	  
 	
-	/***** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
-	PE_low_level_init(); /********************************************************/
-	/***** End of Processor Expert internal initialization. **********************/
+	/***** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! **/
+	PE_low_level_init(); /*******************************************************/
+	/***** End of Processor Expert internal initialization. *********************/
 	
-	
-	/***********************************************************************************
-	 * Uebung2: Ausgabe eines Strings (rückwärts)
-	 * Wie Übung 1, aber String rückwärts (beginnend mit dem letzen Zeichen) ausgeben:
-	 **********************************************************************************/
-	/*asm
-	{ 
-		
-		
-		LEA str,A1
-		MOVE A1,A2		//save beginning of string to A2
-		Loop2: 				//To find the last element of str While
-			MOVE.B +(A1),D0	//increment poiter to 1 after str end
-			TST.B D0			//end loop to if content of D0 = 0
-			BEQ End_Loop2
-					  
-			BRA Loop2			//We jmp back as long as str is not NULL
-		End_Loop2:
-				  
-		SUBA.L #1,A1		//move pointer back to str end
-		Loop3:
-			MOVE.B -(A1),D0
-			MOVE.B D0,-(SP)
-			JSR TERM_Write	//call function TERM_Write
-			ADDA.L #1,SP		//clean Stack
-			CMPA A1,A2
-			BEQ End_Loop3
-					  
-		BRA Loop3
-		
-		End_Loop3:
-	}
-	 */
-	
-	string();
+	/****************************************************************************
+	 * execute functions here!													*
+	 ****************************************************************************/
+	//string();
+	string_revert();
 	//hex_to_ascii();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 

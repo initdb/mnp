@@ -1,9 +1,9 @@
-/*
- * string.c
- *
- *  Created on: Oct 24, 2018
- *      Author: Caroline, Benedict
- */
+/************************************
+ * string.c							*
+ *									*
+ *  Created on: Oct 24, 2018		*
+ *      Author: Caroline, Benedict	*
+ ************************************/
 
 #include "UART0.h"
 #include "support_common.h"  // include peripheral declarations and more; 
@@ -14,8 +14,8 @@
 #include "string.h"
 
 /****************************************************************
- * Uebung1: Ausgabe eines Strings
- * Mit einer Schleife alle Zeichen des Strings einzeln ausgeben
+ * Uebung1: Ausgabe eines Strings								*
+ * Mit einer Schleife alle Zeichen des Strings einzeln ausgeben	*
  ****************************************************************/
 void string()
 {
@@ -40,4 +40,40 @@ void string()
 		
 		End_Loop:				//end loop label
 	}	  
+}
+
+/****************************************************************
+ * Uebung2: Ausgabe eines Strings (rückwärts)					*
+ * Wie Übung 1, aber String rückwärts 							*
+ * (beginnend mit dem letzen Zeichen) ausgeben:					*
+ ****************************************************************/
+string_revert()
+{
+	asm
+	{	
+		LEA str,A1
+		MOVE A1,A2		//save beginning of string to A2
+		Loop2: 				//To find the last element of str While
+			MOVE.B +(A1),D0	//increment poiter to 1 after str end
+			TST.B D0			//end loop to if content of D0 = 0
+			BEQ End_Loop2
+						  
+		BRA Loop2			//We jmp back as long as str is not NULL
+		
+		End_Loop2:
+					  
+		SUBA.L #1,A1		//move pointer back to str end
+		
+		Loop3:
+			MOVE.B -(A1),D0
+			MOVE.B D0,-(SP)
+			JSR TERM_Write	//call function TERM_Write
+			ADDA.L #1,SP		//clean Stack
+			CMPA A1,A2
+			BEQ End_Loop3
+						  
+		BRA Loop3
+			
+		End_Loop3:
+	}
 }

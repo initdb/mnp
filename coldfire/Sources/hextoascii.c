@@ -1,9 +1,9 @@
-/*
- * hextoascii.c
- *
- *  Created on: Oct 24, 2018
- *      Author: Caroline, Benedict
- */
+/************************************
+ * hextoascii.c						*
+ *									*
+ *  Created on: Oct 24, 2018		*
+ *      Author: Caroline, Benedict	*
+ ************************************/
 
 
 #include "UART0.h"
@@ -14,10 +14,10 @@
 
 #include "hextoascii.h"
 
-/**************************************************************
- * Uebung3: Ausgeben eines Speicherwortes als Hexadezimalwert.
- * Ein vorgegebenes Wort im Speicher als ASCII ausgeben.
- **************************************************************/
+/****************************************************************
+ * Uebung3: Ausgeben eines Speicherwortes als Hexadezimalwert.	*
+ * Ein vorgegebenes Wort im Speicher als ASCII ausgeben.		*
+ ****************************************************************/
 void hex_to_ascii()
 {
 	uint32_t zahl = 0xAFFE;
@@ -28,10 +28,10 @@ void hex_to_ascii()
 		MOVE.L #12,D4 //4*4 Bit - 4 Bit = "12"
 		loop: //start of "loop"
 			MOVE.L zahl,D1 //move "zahl" to "D1"
-			/******************************************************
-			 * ASR or Logical Shift Right D4 to D1
-			 * We use  LSR (1-8) instead of LSRI since its below 8
-			 ******************************************************/
+			/********************************************************
+			 * ASR or Logical Shift Right D4 to D1					*
+			 * We use  LSR (1-8) instead of LSRI since its below 8	*
+			 ********************************************************/
 			LSR.L D4,D1
 			// mask with immediate data
 			ANDI.L #15,D1

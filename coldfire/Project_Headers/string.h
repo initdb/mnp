@@ -9,5 +9,6 @@
 #define STRING_H_
 
 void string();
+void string_revert();
 
 #endif /* STRING_H_ */
