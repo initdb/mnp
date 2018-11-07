@@ -6,9 +6,9 @@
  */
 
 /************************************
- * hextoascii.c						*
+ * subroutine.c						*
  *									*
- *  Created on: Oct 24, 2018		*
+ *  Created on: Nov 07, 2018		*
  *      Author: Caroline, Benedict	*
  ************************************/
 
@@ -22,8 +22,9 @@
 #include "subroutine.h"
 
 /****************************************************************
- * Uebung3: Ausgeben eines Speicherwortes als Hexadezimalwert.	*
- * Ein vorgegebenes Wort im Speicher als ASCII ausgeben.		*
+ * Uebung4: Ausgeben eines Speicherwortes als Hexadezimalwert.	*
+ * als Unterprogramm von Uebung 3 gemäß Aufrufkonventionen		*
+ * unseres Compilers und Aufruf des Unterprogramms aus Assembler*
  ****************************************************************/
 void subroutine()
 {
@@ -31,7 +32,7 @@ void subroutine()
 	
 	asm
 	{		
-		BRA Start:
+		BRA Start
 		
 		/******************************************************************************
 		 * subroutine / function hextoascii()										  *
@@ -42,17 +43,23 @@ void subroutine()
 			/********************************************************
 			 * in subroutine										*
 			 ********************************************************/
-			
+			// create frame pointer and save to A6
 			LINK A6,#-4
-			// 
+			// save registers, not needed here?
+			// SUBA.L #24,SP
+			// MOVEM.L ...,(SP)
 			
 			/********************************************************
-			 * old exercise	!!!!									*
+			 * !!! old exercise	!!!!								*
 			 ********************************************************/
 			//Don'r use D2 its easily broken pls use D4
 			MOVE.L #12,D4 //4*4 Bit - 4 Bit = "12"
 			loop: //start of "loop"
-				MOVE.L zahl,D1 //move "zahl" to "D1"
+				/********************************************************
+				 * !!! new !!! 											*
+				 ********************************************************/
+				MOVE.W 10(A6),D1 //move func parameter 1 to "D1"
+				
 				/********************************************************
 				 * ASR or Logical Shift Right D4 to D1					*
 				 * We use  LSR (1-8) instead of LSRI since its below 8	*
@@ -91,8 +98,12 @@ void subroutine()
 				  
 			end_loop: //If shift register == 0 -> "end_loop"
 			/********************************************************
-			 * old exercise	!!!!									*
+			 * !!! end old exercise	!!!!							*
 			 ********************************************************/
+			/* recover saved registers */
+			// MOVEM.L (SP),...
+			// ADDA.L #24,SP
+			UNLK A6
 		RTS
 		/******************************************************************************
 		 * main()																	  *
@@ -101,12 +112,13 @@ void subroutine()
 		 * 		  - clean up														  *
 		 ******************************************************************************/
 		Start:
-			// prepare before calling subroutine
-			MOVE.L zahl,-(SP)//zahl: platzhalter
-			// call subroutine
+			/* prepare before calling subroutine */
+			// write last to first function parameter to stack 
+			MOVE.L zahl,-(SP)
+			/* call subroutine */
 			JSR UP_hextoascii
-			// clean up stack
-			// ADDA.L #4,SP
+			/* clean up parameter */
+			ADDA.L #2,SP
 	}
 }
 

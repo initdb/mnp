@@ -20,14 +20,14 @@
  ****************************************************************/
 void hex_to_ascii()
 {
-	uint32_t zahl = 0xAFFE;
+	uint16_t zahl = 0xAFFE;
 	
 	asm
 	{		
 		//Don'r use D2 its easily broken pls use D4
 		MOVE.L #12,D4 //4*4 Bit - 4 Bit = "12"
 		loop: //start of "loop"
-			MOVE.L zahl,D1 //move "zahl" to "D1"
+			MOVE.W zahl,D1 //move "zahl" to "D1"
 			/********************************************************
 			 * ASR or Logical Shift Right D4 to D1					*
 			 * We use  LSR (1-8) instead of LSRI since its below 8	*
