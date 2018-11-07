@@ -36,8 +36,6 @@ void subroutine()
 		
 		/******************************************************************************
 		 * subroutine / function hextoascii()										  *
-		 * @TODO: - 1. parameter : String											  *
-		 * 		  - functionality in subroutine										  *
 		 ******************************************************************************/
 		UP_hextoascii:
 			/********************************************************
@@ -107,9 +105,6 @@ void subroutine()
 		RTS
 		/******************************************************************************
 		 * main()																	  *
-		 * @TODO: - before subroutine												  *
-		 * 		  - after subroutine												  *
-		 * 		  - clean up														  *
 		 ******************************************************************************/
 		Start:
 			/* prepare before calling subroutine */
