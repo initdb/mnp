@@ -38,7 +38,13 @@ void illegal()
 			/********************************************
 			 * handle exception here!!					*
 			 ********************************************/
+			// increment PC/A7 by 2 Byte. 2 Byte = length of ILLEGAL cmd
 			ADD.L #2,4(SP)
+			/********************************************
+			 * this exeption handling does not make 	*
+			 * sense in the real world, would be 		*
+			 * dangerous								*
+			 ********************************************/
 			
 			// Return from Exeption
 			RTE
