@@ -37,6 +37,7 @@
 #include "string.h"
 #include "hextoascii.h"
 #include "subroutine.h"
+#include "illegal.h"
 
 // - Bitte darauf achten, dass am Coldfire-Serial Port ein  
 //   Terminal (Putty o.ä.) mit 19200kBaud angeschlossen ist.
@@ -61,7 +62,8 @@ void main(void)
 	//string();
 	//string_revert();
 	//hex_to_ascii();
-	subroutine();
+	//subroutine();
+	illegal();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************
