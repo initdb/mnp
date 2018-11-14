@@ -38,6 +38,7 @@ void illegal()
 			/********************************************
 			 * handle exception here!!					*
 			 ********************************************/
+			ADD.L #2,4(SP)
 			
 			// Return from Exeption
 			RTE
