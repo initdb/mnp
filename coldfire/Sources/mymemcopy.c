@@ -5,13 +5,6 @@
  *      Author: Benedict
  */
 
-#include "UART0.h"
-#include "support_common.h"  // include peripheral declarations and more; 
-#include "uart_support.h"    // universal asynchronous receiver transmitter,
-                             // (d.h. die serielle Schnittstelle)
-#include "terminal_wrapper.h"
-#include <stdio.h>
-
 
 #include "mymemcopy.h"
 
@@ -25,7 +18,7 @@
  * 			Frame- und Return-Code in Assembler					*
  ****************************************************************/
 
-void introUe5()
+void intro()
 {
 	TERM_WriteString("\r\n########################################################################\r\n");
 	TERM_WriteString("\r\nUebung05: mymmemcopy\r\n");
@@ -48,28 +41,33 @@ void* mymemcopy(void* destination, const void* source, size_t size)
 		MOVEM.L D2/A2-A3,(SP)	// save regs on stack
 		
 		/********************************************
-		 * handle exception here!!					*
+		 * access function parameters				*
 		 ********************************************/
 		MOVE.L  16(A6),D2		// copy param size in D2
 		MOVE.L  12(a6),A2		// copy param source in A2
 		MOVE.L  8(A6),A3		// copy param destination in A3
 		
 		/********************************************
-		 * handle exception here!!					*
+		 * functionality: copy contents of source 	*
+		 * to destination, with the length of size	*
 		 ********************************************/
 		Loop:
 			MOVE.B  (A2)+,(A3)+		// copy contents of A2 to A3
 			SUBI.L  #1,D2			// decrement size(D2) of source
 			TST.B   D2				// asserts size(D2) equals 0
-		BNE     Loop			//if not continue copying 
+		BNE     Loop			// if not continue copying 
 		
 		/********************************************
-		 * handle exception here!!					*
+		 * copy destination to return register A0	*
 		 ********************************************/
-		MOVE.L  8(A6),A0		//Ziel nach a0 rückgabewert
-		MOVEM.L (SP),D2/A2-A3	//Register holen vom Stack	
-		ADDA.L 	#12,SP			//Speicherfreigeben von Register auf SP
-		UNLK 	A6				//FP vom Stack nehmen
+		MOVE.L  8(A6),A0
+		
+		/********************************************
+		 * recover saved registers from stack		*
+		 ********************************************/
+		MOVEM.L (SP),D2/A2-A3	
+		ADDA.L 	#12,SP			// free unused memory on stack
+		UNLK 	A6				// unlink 
 
 		RTS						//return from subroutine
 	}		
