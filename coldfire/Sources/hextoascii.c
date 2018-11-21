@@ -24,7 +24,7 @@ void hex_to_ascii()
 	
 	asm
 	{		
-		//Don'r use D2 its easily broken pls use D4
+		//Don't use D2 its easily broken pls use D4
 		MOVE.L #12,D4 //4*4 Bit - 4 Bit = "12"
 		loop: //start of "loop"
 			MOVE.W zahl,D1 //move "zahl" to "D1"

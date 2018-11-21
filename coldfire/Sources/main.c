@@ -39,6 +39,7 @@
 #include "subroutine.h"
 #include "illegal.h"
 #include "mymemcopy.h"
+#include "trap.h"
 
 // - Bitte darauf achten, dass am Coldfire-Serial Port ein  
 //   Terminal (Putty o.ä.) mit 19200kBaud angeschlossen ist.
@@ -63,7 +64,8 @@ void main(void)
 	//hex_to_ascii();
 	//subroutine();
 	//illegal();
-	call_mymemcopy();	
+	//call_mymemcopy();
+	trap();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************
