@@ -37,7 +37,7 @@ void trap()
 		BRA Start
 		
 		Betriebssystem:
-			// prints out exception str on uart
+			// prints out svc str on uart
 			PEA svc
 			JSR TERM_WriteString
 			ADDA #4,SP
@@ -64,7 +64,14 @@ void trap()
 			LEA Betriebssystem,A1
 			MOVE.L A1,MEMOFFSET+0x80
 			
-			// switch to user mode
+			/********************************************
+			 * switch to user mode						*
+			 ********************************************/
+			MOVE.W SR,D1
+			AND.L 0xDFFF,D1
+			MOVE.W D1,SR
+			
+			// call supervisor call
 			TRAP #0
 			
 			/********************************************/
@@ -72,6 +79,8 @@ void trap()
 			PEA stop
 			JSR TERM_WriteString
 			ADDA #4,SP
+			
+		RTS
 	}
 }
 
