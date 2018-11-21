@@ -68,7 +68,7 @@ void trap()
 			 * switch to user mode						*
 			 ********************************************/
 			MOVE.W SR,D1
-			AND.L 0xDFFF,D1
+			ANDI.L #0xDFFF,D1
 			MOVE.W D1,SR
 			
 			// call supervisor call
