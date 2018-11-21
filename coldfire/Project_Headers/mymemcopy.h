@@ -17,6 +17,7 @@
 #include "terminal_wrapper.h"
 
 void intro();
+void call_mymemcopy();
 void* mymemcopy(void* destination, const void* source, size_t size);
 void outro();
 

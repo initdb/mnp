@@ -49,10 +49,7 @@
 void main(void)
 {
 	int counter = 0;
-	uint32_t zahl = 0xAFFE;
-	char in[] = "hello there!";
-	char out[] = "";
-	  
+	uint32_t zahl = 0xAFFE;  
 	
 	/***** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! **/
 	PE_low_level_init(); /*******************************************************/
@@ -66,9 +63,7 @@ void main(void)
 	//hex_to_ascii();
 	//subroutine();
 	//illegal();
-	intro();
-	mymemcopy(out, in, 5);
-	outro();
+	call_mymemcopy();	
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************

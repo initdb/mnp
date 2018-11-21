@@ -27,15 +27,47 @@ void intro()
 	TERM_WriteString("\r\n########################################################################\r\n");
 }
 
+void call_mymemcopy()
+{
+	char in[20] = "hello there!";
+	char out[20] = "";
+		
+	intro();
+	TERM_WriteString("vorher: ");
+	TERM_WriteString(in);
+	TERM_WriteString("\r\n");
+	mymemcopy(out, in, 5);
+	TERM_WriteString("nachher: ");
+	TERM_WriteString(out);
+	TERM_WriteString("\r\n");
+	outro();
+	
+	//intro();
+	//asm
+	//{
+	//	/********************************************
+	//	 * call mymemcopy()							*
+	//	 ********************************************/
+	//	MOVE.L #7,-(SP)
+	//	MOVE.L in,-(SP)
+	//	MOVE.L out,-(SP)
+		
+	//	JSR mymemcopy
+		
+	//	clean up here!!
+	//}
+	//outro();
+}
+
 void* mymemcopy(void* destination, const void* source, size_t size)
 {		
 	asm
 	{ 
-		NAKED					// look up
-
 		/********************************************
-		 * handle exception here!!					*
+		 * prepare environment						*
 		 ********************************************/
+		NAKED					// this is so the compiler is not performing link; oder asm void*
+
 		LINK 	A6,#0			// save FP/A6
 		ADDA.L 	#-12,SP			// prepare to save reg onto stack
 		MOVEM.L D2/A2-A3,(SP)	// save regs on stack
