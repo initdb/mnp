@@ -40,6 +40,7 @@
 #include "illegal.h"
 #include "mymemcopy.h"
 #include "trap.h"
+#include "linkedList.h"
 
 // - Bitte darauf achten, dass am Coldfire-Serial Port ein  
 //   Terminal (Putty o.ä.) mit 19200kBaud angeschlossen ist.
@@ -65,7 +66,8 @@ void main(void)
 	//subroutine();
 	//illegal();
 	//call_mymemcopy();
-	trap();
+	//trap();
+	linked_list();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************
