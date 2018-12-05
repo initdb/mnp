@@ -17,8 +17,6 @@ void *anker = NULL;
 
 void linked_list()
 {
-	int counter = 0;
-
 	asm
 	{
 		schleife:  
@@ -79,8 +77,8 @@ void linked_list()
 	
 			// Iterator-Paerchen initialisieren
 			LEA anker,A3
-			MOVE.L (A3),A2
-			//LEA anker,A3
+			MOVE.L anker,A2
+			
 			naechstes:      
 				// finden der einfuege Stelle
 				// Fall 1: Element nicht in Liste
@@ -89,8 +87,8 @@ void linked_list()
 				
 				// Fall 2: Element vergleichen
 				MOVE.W (A2),D0
-				EXT.L D0		// !! EXT: sign extend
-				EXT.L D7		// !!
+				//EXT.L D0		// !! EXT: sign extend
+				//EXT.L D7		// !!
 				CMP.L D0,D7		// compare nur mit .L (32 bit) words
 				BLE gefunden
 				
@@ -115,7 +113,8 @@ void linked_list()
 			ADDA.L #4,SP
 			
 			// printout each element of the list
-			LEA anker,A2
+			MOVE.L anker,A2
+			
 			outputloop:
 				TST.L A2		// test ob A2 = NULL
 				BEQ ende		// falls ja Ende der Listes
