@@ -41,6 +41,7 @@
 #include "mymemcopy.h"
 #include "trap.h"
 #include "linkedList.h"
+#include "ledbtn.h"
 
 // - Bitte darauf achten, dass am Coldfire-Serial Port ein  
 //   Terminal (Putty o.ä.) mit 19200kBaud angeschlossen ist.
@@ -67,7 +68,8 @@ void main(void)
 	//illegal();
 	//call_mymemcopy();
 	//trap();
-	linked_list();
+	//linked_list();
+	btn_set_on_press();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************
