@@ -25,7 +25,7 @@
 #define DDRTC		(MEMMAP_OFF + 0x100027)
 // port pin data/ set data registers
 #define PORTNQ		(MEMMAP_OFF + 0x100038)
-#define PORTTC		(MEMMAP_OFF + 0x10003f)
+#define SETTC		(MEMMAP_OFF + 0x10003f)
 // port clear output data
 #define CLRTC		(MEMMAP_OFF + 0x100057)
 
@@ -87,7 +87,7 @@ void btn_set_on_press()
 			BEQ setled
 			// set LEDs to high
 			MOVE.B #0x0f,D2
-			MOVE.B D2,PORTTC
+			MOVE.B D2,SETTC
 	    bra loop
 	    
 	    setled:
