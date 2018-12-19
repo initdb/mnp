@@ -152,7 +152,7 @@ void btn_set_on_press_debounce()
 	    	MOVE.B PORTNQ,D0
 			ANDI.L #0x20,D0
 			
-			// if not pressed to nothing
+			// if not pressed do nothing
 			CLR.L D3 // clear d3
 			MOVE.L #0x20,D1
 			CMP.L D0,D1
@@ -164,7 +164,7 @@ void btn_set_on_press_debounce()
 	    	ADDI.L #1,D3
 	    	MOVE.L #6000000,D4
 	    	CMP.L D3,D4
-	    	BNE wait
+	    BNE wait
 	    	// check current led state and set LEDSs properly
 	    	MOVE.W led_state,D0
 	    	MOVE.L #0,D1
@@ -176,7 +176,7 @@ void btn_set_on_press_debounce()
 	    	// set LEDs to high variable
 	    	MOVE.B #0x0f,D2
 	    	MOVE.B D2,SETTC
-	    	MOVE.L #0,D0
+	    	MOVE.L #1,D0//set led on
 	    	MOVE.W D0,led_state
 	    BRA loop
 	    
@@ -184,7 +184,7 @@ void btn_set_on_press_debounce()
 	    	// set LEDs to low
 	    	MOVE.L #0x00,D2
 	    	MOVE.B D2,CLRTC
-	    	MOVE.L #0,D0
+	    	MOVE.L #0,D0//set led off
 	    	MOVE.W D0,led_state
 	    BRA loop
 	}
