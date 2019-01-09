@@ -70,8 +70,8 @@ void main(void)
 	//call_mymemcopy();
 	//trap();
 	//linked_list();
-	//btn_set_on_press();
-	btn_set_on_press_debounce();
+	btn_set_on_press();
+	//btn_set_on_press_debounce();
 	 
 	// Als Ende-Behandlung nachfolgend ein einfacher Leerlauf-Prozess 
 	// **************************************************************
